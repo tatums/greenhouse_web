@@ -35,13 +35,22 @@ function handler(response){
 function addTableRow(item) {
   var tbody = document.getElementById("tbody");
   var tr = document.createElement("tr");
-  for (var key in item) {
-    if (item.hasOwnProperty(key)) {
-      var td = document.createElement("td");
-      td.innerHTML = item[key];
-      tr.appendChild(td);
-    }
-  }
+
+  var timeTd = document.createElement("td");
+  var tempTd = document.createElement("td");
+  var lightTd = document.createElement("td");
+  var humidityTd = document.createElement("td");
+
+  timeTd.innerHTML = item['time'];
+  tempTd.innerHTML = item['temperature'];
+  lightTd.innerHTML = item['light'];
+  humidityTd.innerHTML = item['humidity'];
+
+  tr.appendChild(timeTd);
+  tr.appendChild(tempTd);
+  tr.appendChild(lightTd);
+  tr.appendChild(humidityTd);
+
   tbody.appendChild(tr);
 }
 
@@ -53,9 +62,9 @@ function setupDataTable(data) {
 
 
 function chartData(input) {
-  var lights = input.map(function(item) { return item.light });
-  var temps = input.map(function(item) { return item.temperature });
   var dates = input.map(function(item) { return item.time });
+  var temps = input.map(function(item) { return item.temperature });
+  var lights = input.map(function(item) { return item.light });
   var humidities = input.map(function(item) { return item.humidity });
   return {
     dates: dates,
